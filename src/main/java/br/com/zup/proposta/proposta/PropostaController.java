@@ -12,20 +12,24 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/propostas")
 public class PropostaController {
 
     @Autowired
-    private EntityManager entityManager;
+    private PropostaRepository repository;
 
     @PostMapping
-    @Transactional
     public ResponseEntity<?> criarProposta(@RequestBody @Valid PropostaRequest request,
                                            UriComponentsBuilder uriComponentsBuilder) {
+        Optional<Proposta> optional = repository.findByDocumento(request.getDocumento());
+        if (optional.isPresent())
+            return ResponseEntity.unprocessableEntity().build();
+
         Proposta proposta = request.toModel();
-        entityManager.persist(proposta);
+        repository.save(proposta);
 
         URI urlNovaProposta = uriComponentsBuilder.path("/propostas/{id}").build(proposta.getId());
         return ResponseEntity.created(urlNovaProposta).build();

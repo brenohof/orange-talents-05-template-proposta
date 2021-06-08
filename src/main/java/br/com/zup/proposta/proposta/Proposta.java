@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 public class Proposta {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
+    @NotNull @Column(unique = true)
     private String documento;
     @NotNull
     private String email;
@@ -22,6 +22,10 @@ public class Proposta {
     private String endereco;
     @NotNull
     private BigDecimal salario;
+
+    @Deprecated
+    public Proposta() {
+    }
 
     public Proposta(@NotBlank String documento, @NotBlank @Email String email,
                     @NotBlank String nome, @NotBlank String endereco,
