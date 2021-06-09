@@ -2,7 +2,6 @@ package br.com.zup.proposta.proposta.analise;
 
 import br.com.zup.proposta.proposta.Proposta;
 import br.com.zup.proposta.proposta.StatusProposta;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,12 +19,11 @@ public class SolicitacaoRequest {
     public static void solicitar(Proposta proposta, String URL) {
         RestTemplate restTemplate = new RestTemplate();
         SolicitacaoRequest request = new SolicitacaoRequest(proposta);
-
         try {
-            SolicitacaoResponse response = restTemplate.postForEntity(URL, request, SolicitacaoResponse.class).getBody();
-            proposta.setStatus(response.getResultadoSolicitacao().normaliza());
+            restTemplate.postForEntity(URL, request, String.class);
+            proposta.defineStatus(StatusProposta.ELEGIVEL);
         } catch (HttpClientErrorException exception) {
-            proposta.setStatus(StatusProposta.NAO_ELEGIVEL);
+            proposta.defineStatus(StatusProposta.NAO_ELEGIVEL);
         }
     }
 

@@ -1,5 +1,7 @@
 package br.com.zup.proposta.proposta;
 
+import br.com.zup.proposta.proposta.cartao.Cartao;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -24,6 +26,8 @@ public class Proposta {
     private BigDecimal salario;
     @Enumerated(EnumType.STRING)
     private StatusProposta status;
+    @OneToOne(mappedBy = "proposta", cascade = CascadeType.MERGE)
+    private Cartao cartao;
 
     @Deprecated
     public Proposta() {
@@ -37,6 +41,7 @@ public class Proposta {
         this.nome = nome;
         this.endereco = endereco;
         this.salario = salario;
+        this.cartao = null;
     }
 
     public Long getId() {
@@ -51,9 +56,25 @@ public class Proposta {
         return nome;
     }
 
-    public void setStatus(StatusProposta status) {
+    public void defineStatus(StatusProposta status) {
         this.status = status;
     }
 
+    public void associaCartao(Cartao cartao) {
+        this.cartao = cartao;
+    }
 
+    @Override
+    public String toString() {
+        return "Proposta{" +
+                "id=" + id +
+                ", documento='" + documento + '\'' +
+                ", email='" + email + '\'' +
+                ", nome='" + nome + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", salario=" + salario +
+                ", status=" + status +
+                ", cartao=" + cartao +
+                '}';
+    }
 }

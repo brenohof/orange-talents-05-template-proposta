@@ -1,7 +1,6 @@
 package br.com.zup.proposta.proposta;
 
 import br.com.zup.proposta.proposta.analise.SolicitacaoRequest;
-import br.com.zup.proposta.proposta.analise.SolicitacaoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -36,6 +36,7 @@ public class PropostaController {
         repository.save(proposta);
 
         SolicitacaoRequest.solicitar(proposta, SOLICITACAO_URL);
+        repository.save(proposta);
 
         URI urlNovaProposta = uriComponentsBuilder.path("/propostas/{id}").build(proposta.getId());
         return ResponseEntity.created(urlNovaProposta).build();
