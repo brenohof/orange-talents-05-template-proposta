@@ -77,4 +77,8 @@ public class Proposta {
                 ", cartao=" + cartao +
                 '}';
     }
+
+    public StatusProposta getStatus() {
+        return this.status;
+    }
 }
