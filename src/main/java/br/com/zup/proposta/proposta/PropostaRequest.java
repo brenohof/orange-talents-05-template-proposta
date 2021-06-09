@@ -29,6 +29,7 @@ public class PropostaRequest {
     }
 
     public Proposta toModel() {
+        
         return new Proposta(documento, email, nome, endereco, salario);
     }
 

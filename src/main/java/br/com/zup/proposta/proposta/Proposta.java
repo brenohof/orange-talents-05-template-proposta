@@ -22,6 +22,8 @@ public class Proposta {
     private String endereco;
     @NotNull
     private BigDecimal salario;
+    @Enumerated(EnumType.STRING)
+    private StatusProposta status;
 
     @Deprecated
     public Proposta() {
@@ -40,4 +42,18 @@ public class Proposta {
     public Long getId() {
         return this.id;
     }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setStatus(StatusProposta status) {
+        this.status = status;
+    }
+
+
 }
