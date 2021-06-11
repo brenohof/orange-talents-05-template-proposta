@@ -4,6 +4,7 @@ import br.com.zup.proposta.proposta.analise.SolicitacaoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -23,6 +24,7 @@ public class PropostaController {
     private String SOLICITACAO_URL;
 
     @PostMapping
+    @Transactional
     public ResponseEntity<?> criarProposta(@RequestBody @Valid PropostaRequest request,
                                            UriComponentsBuilder uriComponentsBuilder) {
         Optional<Proposta> optional = repository.findByDocumento(request.getDocumento());
@@ -33,7 +35,6 @@ public class PropostaController {
         repository.save(proposta);
 
         SolicitacaoRequest.solicitar(proposta, SOLICITACAO_URL);
-        repository.save(proposta);
 
         URI urlNovaProposta = uriComponentsBuilder.path("/propostas/{id}").build(proposta.getId());
         return ResponseEntity.created(urlNovaProposta).build();
