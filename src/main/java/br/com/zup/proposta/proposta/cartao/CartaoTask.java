@@ -9,7 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Component
@@ -32,8 +34,8 @@ public class CartaoTask {
             try {
                 CartaoResponse response = cartaoClient.cartao(idProposta);
                 Cartao cartao = response.toModel(proposta);
-                proposta.associaCartao(cartao);
 
+                proposta.associaCartao(cartao);
                 propostaRepository.save(proposta);
 
                 logger.info("Cartão associado a proposta " + idProposta + "!");
