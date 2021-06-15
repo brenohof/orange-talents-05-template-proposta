@@ -1,4 +1,4 @@
-package br.com.zup.proposta.proposta.cartao.biometria;
+package br.com.zup.proposta.proposta.biometria;
 
 import br.com.zup.proposta.proposta.cartao.Cartao;
 import br.com.zup.proposta.validator.Base64;

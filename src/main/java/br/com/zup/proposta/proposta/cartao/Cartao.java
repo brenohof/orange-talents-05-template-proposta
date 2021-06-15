@@ -1,7 +1,7 @@
 package br.com.zup.proposta.proposta.cartao;
 
 import br.com.zup.proposta.proposta.Proposta;
-import br.com.zup.proposta.proposta.cartao.biometria.Biometria;
+import br.com.zup.proposta.proposta.biometria.Biometria;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.util.Assert;
 
@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "cartoes")

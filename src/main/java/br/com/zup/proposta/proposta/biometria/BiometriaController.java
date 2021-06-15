@@ -1,4 +1,4 @@
-package br.com.zup.proposta.proposta.cartao.biometria;
+package br.com.zup.proposta.proposta.biometria;
 
 import br.com.zup.proposta.proposta.cartao.Cartao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/biometrias")

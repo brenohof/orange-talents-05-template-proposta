@@ -1,11 +1,11 @@
-package br.com.zup.proposta.proposta.cartao.biometria;
+package br.com.zup.proposta.proposta.biometria;
 
 import br.com.zup.proposta.proposta.cartao.Cartao;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "biometrias")
@@ -16,6 +16,8 @@ public class Biometria {
     private String id;
     @NotNull
     private String biometria;
+    @NotNull
+    private LocalDateTime associadaEm = LocalDateTime.now();
     @NotNull @ManyToOne
     private Cartao cartao;
 
