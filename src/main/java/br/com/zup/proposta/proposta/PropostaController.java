@@ -10,7 +10,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,7 +19,7 @@ public class PropostaController {
     @Autowired
     private PropostaRepository repository;
 
-    @Value(value = "${solicitacao.host}")
+    @Value(value = "${analise.host}")
     private String SOLICITACAO_URL;
 
     @PostMapping

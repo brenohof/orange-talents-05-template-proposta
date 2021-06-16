@@ -1,4 +1,4 @@
-package br.com.zup.proposta.proposta.biometria;
+package br.com.zup.proposta.proposta.cartao.biometria;
 
 import br.com.zup.proposta.proposta.cartao.Cartao;
 import org.hibernate.annotations.GenericGenerator;
@@ -28,7 +28,6 @@ public class Biometria {
     public Biometria(String biometria, Cartao cartao) {
         this.biometria = biometria;
         this.cartao = cartao;
-        cartao.associaBiometria(this);
     }
 
     public String getId() {

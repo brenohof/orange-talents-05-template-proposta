@@ -1,7 +1,8 @@
 package br.com.zup.proposta.proposta.cartao;
 
 import br.com.zup.proposta.proposta.Proposta;
-import br.com.zup.proposta.proposta.biometria.Biometria;
+import br.com.zup.proposta.proposta.cartao.biometria.Biometria;
+import br.com.zup.proposta.proposta.cartao.bloqueio.Bloqueio;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.util.Assert;
 
@@ -31,6 +32,10 @@ public class Cartao implements Serializable {
     private BigDecimal limite;
     @OneToMany(mappedBy = "cartao", cascade = CascadeType.MERGE)
     private Set<Biometria> biometrias = new HashSet<>();
+    @OneToOne(mappedBy = "cartao", cascade = CascadeType.MERGE)
+    private Bloqueio bloqueio;
+    @Enumerated(EnumType.STRING)
+    private StatusCartao statusCartao = StatusCartao.LIBERADO;
 
     @Deprecated
     public Cartao() {}
@@ -51,5 +56,16 @@ public class Cartao implements Serializable {
 
     public String getId() {
         return id;
+    }
+
+    public boolean estaBloqueado() {
+        return this.statusCartao == StatusCartao.BLOQUEADO ? true : false;
+    }
+
+    public void bloquear(Bloqueio bloqueio) {
+        Assert.isTrue(bloqueio!=null, "[BUG] Bloqueio não deve estar nulo.");
+
+        this.statusCartao = StatusCartao.BLOQUEADO;
+        this.bloqueio = bloqueio;
     }
 }

@@ -1,4 +1,4 @@
-package br.com.zup.proposta.proposta.biometria;
+package br.com.zup.proposta.proposta.cartao.biometria;
 
 import br.com.zup.proposta.proposta.cartao.Cartao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +12,12 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/biometrias")
+@RequestMapping("/cartoes")
 public class BiometriaController {
     @Autowired
     private EntityManager entityManager;
 
-    @PostMapping("/{idCartao}")
+    @PostMapping("/{idCartao}/biometrias")
     @Transactional
     public ResponseEntity<?> cadastrar(@PathVariable String idCartao,
                                        @RequestBody @Valid BiometriaRequest request,
@@ -28,8 +28,9 @@ public class BiometriaController {
 
         Biometria biometria = request.toModel(cartao);
         entityManager.persist(biometria);
+        cartao.associaBiometria(biometria);
 
-        URI urlNovaProposta = uriComponentsBuilder.path("/biometrias/{id}").build(biometria.getId());
+        URI urlNovaProposta = uriComponentsBuilder.path("/cartoes/{idCartao}/biometrias/{id}").build(idCartao, biometria.getId());
         return ResponseEntity.created(urlNovaProposta).build();
     }
 }

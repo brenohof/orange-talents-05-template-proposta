@@ -64,20 +64,6 @@ public class Proposta {
         this.cartao = cartao;
     }
 
-    @Override
-    public String toString() {
-        return "Proposta{" +
-                "id=" + id +
-                ", documento='" + documento + '\'' +
-                ", email='" + email + '\'' +
-                ", nome='" + nome + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", salario=" + salario +
-                ", status=" + status +
-                ", cartao=" + cartao +
-                '}';
-    }
-
     public StatusProposta getStatus() {
         return this.status;
     }

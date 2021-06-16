@@ -3,15 +3,13 @@ package br.com.zup.proposta.proposta.cartao;
 import br.com.zup.proposta.proposta.Proposta;
 import br.com.zup.proposta.proposta.PropostaRepository;
 import br.com.zup.proposta.proposta.StatusProposta;
-import feign.FeignException.*;
+import feign.FeignException.FeignServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 @Component
