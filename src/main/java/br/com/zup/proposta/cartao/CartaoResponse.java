@@ -1,4 +1,4 @@
-package br.com.zup.proposta.proposta.cartao;
+package br.com.zup.proposta.cartao;
 
 import br.com.zup.proposta.proposta.Proposta;
 import org.springframework.util.Assert;

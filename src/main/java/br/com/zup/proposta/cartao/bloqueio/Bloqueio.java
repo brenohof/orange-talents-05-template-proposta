@@ -1,6 +1,6 @@
-package br.com.zup.proposta.proposta.cartao.bloqueio;
+package br.com.zup.proposta.cartao.bloqueio;
 
-import br.com.zup.proposta.proposta.cartao.Cartao;
+import br.com.zup.proposta.cartao.Cartao;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

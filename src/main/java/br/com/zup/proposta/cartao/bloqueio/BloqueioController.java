@@ -1,8 +1,7 @@
-package br.com.zup.proposta.proposta.cartao.bloqueio;
+package br.com.zup.proposta.cartao.bloqueio;
 
-import br.com.zup.proposta.proposta.cartao.Cartao;
+import br.com.zup.proposta.cartao.Cartao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;

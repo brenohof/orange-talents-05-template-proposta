@@ -1,6 +1,6 @@
 package br.com.zup.proposta.proposta;
 
-import br.com.zup.proposta.proposta.cartao.Cartao;
+import br.com.zup.proposta.cartao.Cartao;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

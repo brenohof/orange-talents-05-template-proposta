@@ -1,8 +1,8 @@
-package br.com.zup.proposta.proposta.cartao;
+package br.com.zup.proposta.cartao;
 
 import br.com.zup.proposta.proposta.Proposta;
-import br.com.zup.proposta.proposta.cartao.biometria.Biometria;
-import br.com.zup.proposta.proposta.cartao.bloqueio.Bloqueio;
+import br.com.zup.proposta.cartao.biometria.Biometria;
+import br.com.zup.proposta.cartao.bloqueio.Bloqueio;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.util.Assert;
 

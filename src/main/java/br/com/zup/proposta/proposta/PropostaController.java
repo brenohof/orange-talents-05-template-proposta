@@ -1,8 +1,10 @@
 package br.com.zup.proposta.proposta;
 
+import br.com.zup.proposta.core.error.ApiErroException;
 import br.com.zup.proposta.proposta.analise.SolicitacaoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +30,7 @@ public class PropostaController {
                                            UriComponentsBuilder uriComponentsBuilder) {
         Optional<Proposta> optional = repository.findByDocumento(request.getDocumento());
         if (optional.isPresent())
-            return ResponseEntity.unprocessableEntity().build();
+            throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe uma proposta com esse documento.");
 
         Proposta proposta = request.toModel();
         repository.save(proposta);
