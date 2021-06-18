@@ -54,8 +54,8 @@ public class Cartao implements Serializable {
         biometrias.add(biometria);
     }
 
-    public String getId() {
-        return id;
+    public String getNumero() {
+        return numero;
     }
 
     public boolean estaBloqueado() {

@@ -45,7 +45,7 @@ public class PropostaController {
     public ResponseEntity<?> consultaProposta(@PathVariable Long id) {
         Optional<Proposta> optional = repository.findById(id);
         if (!optional.isPresent())
-            return ResponseEntity.notFound().build();
+            throw new ApiErroException(HttpStatus.NOT_FOUND, "Proposta não encontrada.");
 
         Proposta proposta = optional.get();
         return ResponseEntity.ok(new PropostaResponse(proposta));

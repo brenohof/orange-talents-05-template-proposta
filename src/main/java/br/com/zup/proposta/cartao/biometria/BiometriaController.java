@@ -1,7 +1,9 @@
 package br.com.zup.proposta.cartao.biometria;
 
 import br.com.zup.proposta.cartao.Cartao;
+import br.com.zup.proposta.core.error.ApiErroException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +26,7 @@ public class BiometriaController {
                                        UriComponentsBuilder uriComponentsBuilder) {
         Cartao cartao = entityManager.find(Cartao.class, idCartao);
         if (cartao == null)
-            return ResponseEntity.notFound().build();
+            throw new ApiErroException(HttpStatus.NOT_FOUND, "Cartão não encontrado.");
 
         Biometria biometria = request.toModel(cartao);
         entityManager.persist(biometria);
