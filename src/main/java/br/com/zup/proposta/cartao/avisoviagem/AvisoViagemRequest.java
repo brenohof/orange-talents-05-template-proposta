@@ -23,4 +23,12 @@ public class AvisoViagemRequest {
         Assert.isTrue(userAgent != null, "[BUG] User-Agent não deve ser nulo.");
         return new AvisoViagem(cartao, ip, userAgent, destino, dataTermino);
     }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public LocalDate getDataTermino() {
+        return dataTermino;
+    }
 }

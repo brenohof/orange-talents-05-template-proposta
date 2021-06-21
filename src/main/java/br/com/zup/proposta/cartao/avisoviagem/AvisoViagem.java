@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class AvisoViagem {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne @NotNull
+    @OneToOne @NotNull
     private Cartao cartao;
     private @NotNull String ipDoCliente;
     private @NotNull String userAgentCliente;
