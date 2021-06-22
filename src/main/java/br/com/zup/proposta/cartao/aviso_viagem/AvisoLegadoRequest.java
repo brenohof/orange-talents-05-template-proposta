@@ -1,4 +1,4 @@
-package br.com.zup.proposta.cartao.avisoviagem;
+package br.com.zup.proposta.cartao.aviso_viagem;
 
 import java.time.LocalDate;
 

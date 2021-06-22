@@ -1,4 +1,4 @@
-package br.com.zup.proposta.cartao.avisoviagem;
+package br.com.zup.proposta.cartao.aviso_viagem;
 
 import br.com.zup.proposta.cartao.Cartao;
 import br.com.zup.proposta.cartao.CartaoClient;

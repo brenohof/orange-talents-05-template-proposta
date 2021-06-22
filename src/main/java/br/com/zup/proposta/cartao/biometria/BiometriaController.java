@@ -32,7 +32,7 @@ public class BiometriaController {
         entityManager.persist(biometria);
         cartao.associaBiometria(biometria);
 
-        URI urlNovaProposta = uriComponentsBuilder.path("/cartoes/{idCartao}/biometrias/{id}").build(idCartao, biometria.getId());
-        return ResponseEntity.created(urlNovaProposta).build();
+        URI url = uriComponentsBuilder.path("/cartoes/{idCartao}/biometrias/{id}").build(idCartao, biometria.getId());
+        return ResponseEntity.created(url).build();
     }
 }

@@ -1,7 +1,6 @@
-package br.com.zup.proposta.cartao.avisoviagem;
+package br.com.zup.proposta.cartao.aviso_viagem;
 
 import br.com.zup.proposta.cartao.Cartao;
-import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
 public class AvisoViagem {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne @NotNull
+    @ManyToOne @NotNull
     private Cartao cartao;
     private @NotNull String ipDoCliente;
     private @NotNull String userAgentCliente;

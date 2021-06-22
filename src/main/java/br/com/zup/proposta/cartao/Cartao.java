@@ -1,5 +1,6 @@
 package br.com.zup.proposta.cartao;
 
+import br.com.zup.proposta.cartao.carteira_digital.CarteiraDigital;
 import br.com.zup.proposta.proposta.Proposta;
 import br.com.zup.proposta.cartao.biometria.Biometria;
 import br.com.zup.proposta.cartao.bloqueio.Bloqueio;
@@ -36,6 +37,8 @@ public class Cartao implements Serializable {
     private Bloqueio bloqueio;
     @Enumerated(EnumType.STRING)
     private StatusCartao statusCartao = StatusCartao.LIBERADO;
+    @OneToMany(mappedBy = "cartao", cascade = CascadeType.MERGE)
+    private Set<CarteiraDigital> carteiras = new HashSet<>();
 
     @Deprecated
     public Cartao() {}
@@ -52,6 +55,12 @@ public class Cartao implements Serializable {
         Assert.isTrue(biometria!=null, "[BUG] Biometria não deveria ser nula.");
 
         biometrias.add(biometria);
+    }
+
+    public void associaCarteira(CarteiraDigital carteiraDigital) {
+        Assert.isTrue(carteiraDigital!=null, "[BUG] Carteira não deveria ser nula.");
+
+        carteiras.add(carteiraDigital);
     }
 
     public String getNumero() {
