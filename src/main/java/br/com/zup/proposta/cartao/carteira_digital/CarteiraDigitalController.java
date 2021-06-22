@@ -32,31 +32,52 @@ public class CarteiraDigitalController {
         this.carteiraRepository = carteiraRepository;
     }
 
-    @PostMapping("/{idCartao}/carteiras")
+    @PostMapping("/{idCartao}/paypal")
     @Transactional
     public ResponseEntity<?> associarCarteiraPaypal(@PathVariable String idCartao,
                                                     @Valid @RequestBody CarteiraRequest request,
                                                     UriComponentsBuilder uriComponentsBuilder) {
+        URI url = processa(idCartao, request, uriComponentsBuilder, EmissorCarteira.PAYPAL);
+        return ResponseEntity.created(url).build();
+    }
 
-        Cartao cartao = cartaoRepository.findById(idCartao)
-                .orElseThrow(() -> new ApiErroException(HttpStatus.NOT_FOUND, "Cartão não encontrado."));
+    @PostMapping("/{idCartao}/samsungpay")
+    @Transactional
+    public ResponseEntity<?> associarCarteiraSamsungPay(@PathVariable String idCartao,
+                                                    @Valid @RequestBody CarteiraRequest request,
+                                                    UriComponentsBuilder uriComponentsBuilder) {
+        URI url = processa(idCartao, request, uriComponentsBuilder, EmissorCarteira.SAMSUNG_PAY);
+        return ResponseEntity.created(url).build();
+    }
 
-        CarteiraDigital carteiraDigital = carteiraRepository.findByCartaoAndEmissor(cartao, request.getCarteira());
-        if (carteiraDigital != null)
-            throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Esse cartão já foi vinculado a essa carteira.");
+    private URI processa(String idCartao, CarteiraRequest request,
+                         UriComponentsBuilder uriComponentsBuilder,
+                         EmissorCarteira emissor) {
+        Cartao cartao = validarDados(idCartao, emissor);
 
-        notificarLegado(request, cartao);
 
-        CarteiraDigital novaCarteiraDigital = request.toModel(cartao);
+        notificarLegado(CarteiraLegadoRequest.build(request, emissor), cartao);
+
+        CarteiraDigital novaCarteiraDigital = request.toModel(cartao, emissor);
         carteiraRepository.save(novaCarteiraDigital);
         cartao.associaCarteira(novaCarteiraDigital);
 
         URI url = uriComponentsBuilder.path("/cartoes/{idCartao}/carteiras/{id}")
                 .build(idCartao, novaCarteiraDigital.getId());
-        return ResponseEntity.created(url).build();
+        return url;
     }
 
-    private void notificarLegado(CarteiraRequest request, Cartao cartao) {
+    private Cartao validarDados(String idCartao, EmissorCarteira emissor) {
+        Cartao cartao = cartaoRepository.findById(idCartao)
+                .orElseThrow(() -> new ApiErroException(HttpStatus.NOT_FOUND, "Cartão não encontrado."));
+
+        CarteiraDigital carteiraDigital = carteiraRepository.findByCartaoAndEmissor(cartao, emissor);
+        if (carteiraDigital != null)
+            throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Esse cartão já foi vinculado a essa carteira.");
+        return cartao;
+    }
+
+    private void notificarLegado(CarteiraLegadoRequest request, Cartao cartao) {
         try {
             cartaoClient.associarCarteira(cartao.getNumero(), request);
         } catch (FeignException e) {

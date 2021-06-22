@@ -14,7 +14,8 @@ public class CarteiraDigital {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
     private @NotNull String email;
-    private @NotNull String emissor;
+    @Enumerated(EnumType.STRING)
+    private @NotNull EmissorCarteira emissor;
     @ManyToOne
     private @NotNull Cartao cartao;
 
@@ -22,7 +23,7 @@ public class CarteiraDigital {
     public CarteiraDigital() {
     }
 
-    public CarteiraDigital(String email, String emissor, Cartao cartao) {
+    public CarteiraDigital(String email, EmissorCarteira emissor, Cartao cartao) {
         this.email = email;
         this.emissor = emissor;
         this.cartao = cartao;
