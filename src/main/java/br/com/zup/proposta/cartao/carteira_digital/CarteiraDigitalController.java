@@ -5,6 +5,8 @@ import br.com.zup.proposta.cartao.CartaoClient;
 import br.com.zup.proposta.cartao.CartaoRepository;
 import br.com.zup.proposta.core.error.ApiErroException;
 import feign.FeignException;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,13 +23,16 @@ public class CarteiraDigitalController {
     private CartaoRepository cartaoRepository;
     private CartaoClient cartaoClient;
     private CarteiraRepository carteiraRepository;
+    private Tracer tracer;
 
     public CarteiraDigitalController(CartaoRepository cartaoRepository,
                                      CartaoClient cartaoClient,
-                                     CarteiraRepository carteiraRepository) {
+                                     CarteiraRepository carteiraRepository,
+                                     Tracer tracer) {
         this.cartaoRepository = cartaoRepository;
         this.cartaoClient = cartaoClient;
         this.carteiraRepository = carteiraRepository;
+        this.tracer = tracer;
     }
 
     @PostMapping("/{idCartao}/paypal")
@@ -51,8 +56,11 @@ public class CarteiraDigitalController {
     private URI processa(String idCartao, CarteiraRequest request,
                          UriComponentsBuilder uriComponentsBuilder,
                          EmissorCarteira emissor) {
-        Cartao cartao = validarDados(idCartao, emissor);
 
+        Span activeSpan = tracer.activeSpan();
+        activeSpan.log("Requisição da associação da carteira digital do " + emissor);
+
+        Cartao cartao = validarDados(idCartao, emissor);
 
         notificarLegado(CarteiraLegadoRequest.build(request, emissor), cartao);
 

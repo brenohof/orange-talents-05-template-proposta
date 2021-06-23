@@ -5,6 +5,8 @@ import br.com.zup.proposta.cartao.CartaoClient;
 import br.com.zup.proposta.cartao.CartaoTask;
 import br.com.zup.proposta.core.error.ApiErroException;
 import feign.FeignException;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +27,24 @@ import java.util.Optional;
 public class BloqueioController {
 
     private Logger logger = LoggerFactory.getLogger(BloqueioController.class);
-    @Autowired
     private EntityManager entityManager;
-    @Autowired
     private CartaoClient cartaoClient;
+    private Tracer tracer;
 
-    
+    public BloqueioController(EntityManager entityManager, CartaoClient cartaoClient, Tracer tracer) {
+        this.entityManager = entityManager;
+        this.cartaoClient = cartaoClient;
+        this.tracer = tracer;
+    }
+
     @PostMapping("/{idCartao}/bloqueios")
     @Transactional
     public ResponseEntity<?> bloquearCartao(@PathVariable String idCartao,
                                             HttpServletRequest request) {
+        Span activeSpan = tracer.activeSpan();
+        activeSpan.setTag("cartao.id", idCartao);
+        activeSpan.setBaggageItem("cartao.id", idCartao);
+
         Cartao cartao = verificaDadosCartao(idCartao);
 
         notificaLegado(cartao);
