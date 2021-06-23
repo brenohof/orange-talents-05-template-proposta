@@ -1,7 +1,7 @@
 package br.com.zup.proposta.proposta;
 
 public class PropostaResponse {
-    private Long id;
+    private String id;
     private String nome;
     private StatusProposta status;
 
@@ -11,7 +11,7 @@ public class PropostaResponse {
         this.status = proposta.getStatus();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

@@ -46,6 +46,7 @@ public class BloqueioController {
         entityManager.persist(bloqueio);
         cartao.bloquear(bloqueio);
 
+        logger.info("Novo bloqueio com id = " + bloqueio.getId());
         return ResponseEntity.ok().build();
     }
 

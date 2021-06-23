@@ -1,4 +1,4 @@
-package br.com.zup.proposta.validation;
+package br.com.zup.proposta.core.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -7,11 +7,11 @@ import br.com.zup.proposta.cartao.carteira_digital.CarteiraRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "cartoes", url = "${cartao.host}")
+@FeignClient(name = "cartoes", url = "${api.cartao}")
 public interface CartaoClient {
 
     @GetMapping
-    CartaoResponse cartao(@RequestParam Long idProposta);
+    CartaoResponse cartao(@RequestParam String idProposta);
 
     @PostMapping("/{id}/bloqueios")
     void bloquear(@PathVariable String id, @RequestBody BloqueioRequest request);

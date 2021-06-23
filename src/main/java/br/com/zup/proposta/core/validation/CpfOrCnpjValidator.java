@@ -1,4 +1,4 @@
-package br.com.zup.proposta.validation;
+package br.com.zup.proposta.core.validation;
 
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;

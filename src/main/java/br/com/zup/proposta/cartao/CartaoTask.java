@@ -28,7 +28,7 @@ public class CartaoTask {
         List<Proposta> propostas = propostaRepository.findByCartaoNullAndStatus(StatusProposta.ELEGIVEL);
 
         propostas.forEach(proposta -> {
-            Long idProposta = proposta.getId();
+            String idProposta = proposta.getId();
             try {
                 CartaoResponse response = cartaoClient.cartao(idProposta);
                 Cartao cartao = response.toModel(proposta);

@@ -1,7 +1,7 @@
 package br.com.zup.proposta.cartao.biometria;
 
 import br.com.zup.proposta.cartao.Cartao;
-import br.com.zup.proposta.validation.Base64;
+import br.com.zup.proposta.core.validation.Base64;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import org.springframework.util.Assert;
 

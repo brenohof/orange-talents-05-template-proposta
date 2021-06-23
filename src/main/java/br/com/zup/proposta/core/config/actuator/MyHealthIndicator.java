@@ -13,10 +13,10 @@ public class MyHealthIndicator implements HealthIndicator {
 
     Logger logger = LoggerFactory.getLogger(MyHealthIndicator.class);
 
-    @Value(value = "${analise.health}")
+    @Value(value = "${health.analise}")
     private String analise_url;
 
-    @Value(value = "${cartao.health}")
+    @Value(value = "${health.cartao}")
     private String cartao_url;
 
     @Override

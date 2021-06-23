@@ -1,6 +1,7 @@
 package br.com.zup.proposta.proposta;
 
 import br.com.zup.proposta.cartao.Cartao;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -12,8 +13,9 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "propostas")
 public class Proposta {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
     @NotNull @Column(unique = true)
     private String documento;
     @NotNull
@@ -44,7 +46,7 @@ public class Proposta {
         this.cartao = null;
     }
 
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 

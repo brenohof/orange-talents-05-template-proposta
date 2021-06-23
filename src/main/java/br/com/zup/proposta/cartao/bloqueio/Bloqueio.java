@@ -32,4 +32,8 @@ public class Bloqueio {
         this.userAgentCliente = userAgent;
         this.ipCliente = ip;
     }
+
+    public String getId() {
+        return id;
+    }
 }
