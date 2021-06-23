@@ -9,11 +9,11 @@ import java.time.LocalDateTime;
 public class CartaoResponse {
     private LocalDateTime emitidoEm;
     private String titular;
-    private Long idProposta;
+    private String idProposta;
     private BigDecimal limite;
     private String id;
 
-    public CartaoResponse(LocalDateTime emitidoEm, String titular, Long idProposta, BigDecimal limite, String id) {
+    public CartaoResponse(LocalDateTime emitidoEm, String titular, String idProposta, BigDecimal limite, String id) {
         this.emitidoEm = emitidoEm;
         this.titular = titular;
         this.idProposta = idProposta;

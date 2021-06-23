@@ -21,16 +21,12 @@ public class Cartao implements Serializable {
     @Id @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
-    @NotNull
-    private String numero;
-    @NotNull
-    private LocalDateTime emitidoEm;
-    @NotNull
-    private String titular;
-    @OneToOne @NotNull
-    private Proposta proposta;
-    @NotNull
-    private BigDecimal limite;
+    private @NotNull String numero;
+    private @NotNull LocalDateTime emitidoEm;
+    private @NotNull String titular;
+    @OneToOne
+    private @NotNull Proposta proposta;
+    private @NotNull BigDecimal limite;
     @OneToMany(mappedBy = "cartao", cascade = CascadeType.MERGE)
     private Set<Biometria> biometrias = new HashSet<>();
     @OneToOne(mappedBy = "cartao", cascade = CascadeType.MERGE)

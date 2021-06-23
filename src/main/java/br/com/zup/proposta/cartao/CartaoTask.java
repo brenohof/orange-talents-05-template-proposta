@@ -15,13 +15,14 @@ import java.util.List;
 @Component
 public class CartaoTask {
 
-    Logger logger = LoggerFactory.getLogger(CartaoTask.class);
-
-    @Autowired
+    private Logger logger = LoggerFactory.getLogger(CartaoTask.class);
     private PropostaRepository propostaRepository;
-
-    @Autowired
     private CartaoClient cartaoClient;
+
+    public CartaoTask(PropostaRepository propostaRepository, CartaoClient cartaoClient) {
+        this.propostaRepository = propostaRepository;
+        this.cartaoClient = cartaoClient;
+    }
 
     @Scheduled(fixedDelayString = "${periodicidade.consulta-cartao}")
     public void consultaCartao() {
