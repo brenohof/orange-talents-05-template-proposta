@@ -1,0 +1,21 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+
+  - job_name: 'proposta_prod'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['proposta:8080']
+
+  - job_name: 'proposta_dev'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8081']
+    oauth2:
+      client_id: 'minha-aplicacao'
+      client_secret: '353bbdab-2a04-4f90-b4d0-3decadf13ec3'
+      scopes:
+        - 'proposta'
+      token_url: 'http://host.docker.internal:18080/auth/realms/nosso-cartao/protocol/openid-connect/token'

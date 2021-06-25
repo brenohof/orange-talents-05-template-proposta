@@ -1,5 +1,6 @@
 package br.com.zup.proposta.core.config.security;
 
+import io.jaegertracing.internal.utils.Http;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +13,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/actuator/**").hasAuthority("SCOPE_proposta")
                 .antMatchers(HttpMethod.GET,  "/propostas/**").hasAuthority("SCOPE_proposta")
                 .antMatchers(HttpMethod.POST,  "/propostas/**").hasAuthority("SCOPE_proposta")
                 .antMatchers(HttpMethod.GET,  "/cartoes/**").hasAuthority("SCOPE_proposta")
