@@ -32,7 +32,7 @@ services:
       DATABASE_USERNAME: root
       DATABASE_PASSWORD: root
       MYSQL_HOST: mysql:3306
-      JPA_STRATEGY: none
+      JPA_STRATEGY: create-drop
 
   zookeeper:
     image: "confluentinc/cp-zookeeper:5.2.1"

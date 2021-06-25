@@ -1,6 +1,9 @@
 package br.com.zup.proposta.proposta;
 
 import br.com.zup.proposta.core.validation.CpfOrCnpj;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.encrypt.Encryptors;
+import org.springframework.security.crypto.encrypt.TextEncryptor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -28,9 +31,9 @@ public class PropostaRequest {
         this.salario = salario;
     }
 
-    public Proposta toModel() {
-        
-        return new Proposta(documento, email, nome, endereco, salario);
+    public Proposta toModel(Criptografador criptografador) {
+        String documentoCrifado = criptografador.criptografarDocumento(documento);
+        return new Proposta(documentoCrifado, email, nome, endereco, salario);
     }
 
     public String getDocumento() {

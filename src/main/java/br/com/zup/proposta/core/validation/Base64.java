@@ -16,5 +16,4 @@ public @interface Base64 {
 
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
-
 }

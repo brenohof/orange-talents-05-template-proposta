@@ -2,6 +2,7 @@ package br.com.zup.proposta.proposta;
 
 import br.com.zup.proposta.cartao.Cartao;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

@@ -1,5 +1,6 @@
 package br.com.zup.proposta.proposta.analise;
 
+import br.com.zup.proposta.proposta.Criptografador;
 import br.com.zup.proposta.proposta.Proposta;
 import br.com.zup.proposta.proposta.StatusProposta;
 import feign.FeignException;
@@ -15,12 +16,9 @@ public class AnaliseRequest {
         this.idProposta = idProposta;
     }
 
-    public static AnaliseRequest build(Proposta proposta) {
-        return new AnaliseRequest(proposta.getDocumento(), proposta.getNome(), proposta.getId());
-    }
-
-    public static void solicitar(Proposta proposta, AnaliseClient analiseClient) {
-        AnaliseRequest request = AnaliseRequest.build(proposta);
+    public static void solicitar(Proposta proposta, AnaliseClient analiseClient, Criptografador criptografador) {
+        String documentoDecifrado = criptografador.descriptografarDocumento(proposta.getDocumento());
+        AnaliseRequest request = new AnaliseRequest(documentoDecifrado, proposta.getNome(), proposta.getId());
         try {
             analiseClient.solicitarAnalise(request);
             proposta.defineStatus(StatusProposta.ELEGIVEL);

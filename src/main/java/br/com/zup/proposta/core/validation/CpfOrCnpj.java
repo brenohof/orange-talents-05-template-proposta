@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CpfOrCnpj {
     String message() default
-            "{br.com.zup.beanvalidation.cpforcnpj}";
+            "Documento inválido.";
 
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};

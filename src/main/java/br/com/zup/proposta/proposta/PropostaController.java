@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -27,16 +28,19 @@ public class PropostaController {
     private AnaliseClient analiseClient;
     private Tracer tracer;
     private Metricas metricas;
+    private Criptografador criptografador;
     private Logger logger = LoggerFactory.getLogger(PropostaController.class);
 
     public PropostaController(PropostaRepository repository,
                               AnaliseClient analiseClient,
                               Tracer tracer,
-                              Metricas metricas) {
+                              Metricas metricas,
+                              Criptografador criptografador) {
         this.repository = repository;
         this.analiseClient = analiseClient;
         this.tracer = tracer;
         this.metricas = metricas;
+        this.criptografador = criptografador;
     }
 
     @PostMapping
@@ -49,14 +53,15 @@ public class PropostaController {
 
         Long startTime = System.currentTimeMillis();
 
-        repository.findByDocumento(request.getDocumento())
+        String documentoCifrado = criptografador.criptografarDocumento(request.getDocumento());
+        repository.findByDocumento(documentoCifrado)
                 .ifPresent(s -> {throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe uma proposta com esse documento.");});
 
-        Proposta proposta = request.toModel();
+        Proposta proposta = request.toModel(criptografador);
         repository.save(proposta);
         logger.info("Proposta persistida com id = " + proposta.getId());
 
-        AnaliseRequest.solicitar(proposta, analiseClient);
+        AnaliseRequest.solicitar(proposta, analiseClient, criptografador);
         repository.save(proposta);
         logger.info("Proposta atualizada com o status = " + proposta.getStatus());
 
